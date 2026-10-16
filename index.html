@@ -221,6 +221,8 @@ table.art { min-width: 640px; }
 table.art td:first-child { white-space: normal; font-weight: 400; width: 38%; }
 table.art td:first-child b { display: block; font-weight: 600; margin-bottom: 2px; }
 table.art td:last-child { white-space: nowrap; width: 1%; }
+table.art tr.art-group td { white-space: normal; width: auto; background: var(--sunken); font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-muted); padding-block: 8px; }
+table.art tr.art-group q { font-style: normal; color: inherit; }
 details.sec { display: grid; min-width: 0; border-block: 1px solid var(--border); }
 .folds details.sec + details.sec { border-top: 0; }
 details.sec > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding-block: 8px; }
@@ -283,6 +285,11 @@ footer { color: var(--fg-muted); font-size: 13px; }
             <td><span class="st st-part">__I_PART__Partly</span></td>
           </tr>
           <tr>
+            <td><q>the change in the NFT could transcend into the physical world</q></td>
+            <td>Not addressed here.</td>
+            <td><span class="st st-open">__I_OPEN__Open</span></td>
+          </tr>
+          <tr>
             <td><b>Embedded Unlockable Content</b><q>additional content that can only be revealed by the NFT holder</q></td>
             <td>The content rides encrypted inside the same file. The Sentinels release its key only to the account the ledger names as the NFT holder. <a href="#h-com">Ask the committee</a></td>
             <td><span class="st st-ok">__I_OK__Met</span></td>
@@ -307,15 +314,26 @@ footer { color: var(--fg-muted); font-size: 13px; }
             <td>Five phases, one Accelerator-Z proposal each.<a class="cite" href="#s16">16</a></td>
             <td><span class="st st-plan">__I_PLAN__Planned</span></td>
           </tr>
+          <tr class="art-group"><td colspan="3">The article's <q>additional components that are needed to fulfill the vision</q></td></tr>
           <tr>
-            <td><q>the change in the NFT could transcend into the physical world</q></td>
-            <td>Not addressed here.</td>
-            <td><span class="st st-open">__I_OPEN__Open</span></td>
+            <td><b>Virtual Hologram implementation</b><q>minting should automatically insert the Virtual Hologram using a steganographic method</q></td>
+            <td>Minting inserts it automatically: drop a file and it is embedded. The method is a format-preserving container, not steganography. <a href="#h-demo">Try your own file</a></td>
+            <td><span class="st st-part">__I_PART__Partly</span></td>
+          </tr>
+          <tr>
+            <td><b>Spectral Attestation implementation</b><q>extract the Virtual Hologram and validate it using on-chain data</q></td>
+            <td>The demo extracts the Virtual Hologram, checks the issuer's signature and the content hash, and asks the ledger who holds the item. The ledger is the proof of concept's, not NoM. <a href="#demo-holo">See the Virtual Hologram</a></td>
+            <td><span class="st st-ok">__I_OK__Met</span></td>
+          </tr>
+          <tr>
+            <td><q>[Syrius] and other compatible wallets should support registering and transferring NFTs with multiple formats</q> <span class="hint">with Drag &amp; Drop to mint an NFT or a collection</span></td>
+            <td>Drag and drop of any format mints here, in the browser. Syrius support and collections are planned. <a href="#h-demo">Drop a file</a></td>
+            <td><span class="st st-part">__I_PART__Partly</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="hint">Spectral Attestation, sol's 2022 forum term for "extract the Virtual Hologram and validate it using on-chain data", is the hologram check in the demo below.<a class="cite" href="#s20">20</a> The article does not say which key reveals the content or what happens on transfer. Threshold release is this page's answer.</p>
+    <p class="hint">The article does not say which key reveals the content or what happens on transfer. Threshold release is this page's answer.</p>
   </section>
 
   <section aria-labelledby="h-demo">
@@ -461,7 +479,6 @@ footer { color: var(--fg-muted); font-size: 13px; }
       <li id="s17">Project document, 2026-10-05: <span class="local">zenon-sentinels/docs/contract-v2.md</span>, operator keys and pay by duty.</li>
       <li id="s18">Measurement, devnet, 2026-09-13: <span class="local">zenon-docs/measurements/threshold-signatures.md</span>, a FROST-Ed25519 quorum holds a z1 address and resharing keeps the group key.</li>
       <li id="s19">Proof of concept, 2026-10-16: <span class="local">zenon-nft/poc</span>, the container across 36 file types and the committee on Curve25519 (<span class="local">filippo.io/edwards25519</span>), compiled to WebAssembly for this page. Results in <span class="local">zenon-nft/docs/POC.md</span>.</li>
-      <li id="s20">sol. <a href="https://forum.zenon.org/t/steganography-nft-what-can-it-be-used-for/952">Steganography NFT: What can it be used for?</a> Zenon forum, thread 952, 2022-11. Coins Spectral Attestation.</li>
     </ol>
     </div>
   </details>
