@@ -1,0 +1,4 @@
+# The samples are test inputs: commit them byte for byte, never convert line endings.
+samples/** binary
+*.wasm binary
+*.png binary
