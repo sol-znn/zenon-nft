@@ -166,11 +166,11 @@ textarea { width: 100%; min-height: 64px; resize: vertical; border: 1px solid va
 .preview img, .preview video { max-width: 100%; max-height: 220px; image-rendering: pixelated; }
 .preview audio { width: 100%; }
 .preview pre { margin: 0; width: 100%; max-height: 220px; overflow: auto; font: 12px var(--font-mono); white-space: pre-wrap; word-break: break-all; color: var(--fg); }
-details { border: 1px solid var(--border); border-radius: var(--radius); }
-details summary { cursor: pointer; padding: 10px 12px; font-weight: 600; font-size: 14px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-details summary::after { content: "+"; font-family: var(--font-mono); color: var(--fg-muted); }
-details[open] summary::after { content: "\2212"; }
-details pre { margin: 0; padding: 0 12px 12px; font: 12px var(--font-mono); white-space: pre-wrap; word-break: break-all; overflow-x: auto; max-height: 360px; overflow-y: auto; }
+.results details { border: 1px solid var(--border); border-radius: var(--radius); }
+.results details summary { cursor: pointer; padding: 10px 12px; font-weight: 600; font-size: 14px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.results details summary::after { content: "+"; font-family: var(--font-mono); color: var(--fg-muted); }
+.results details[open] summary::after { content: "\2212"; }
+.results details pre { margin: 0; padding: 0 12px 12px; font: 12px var(--font-mono); white-space: pre-wrap; word-break: break-all; overflow-x: auto; max-height: 360px; overflow-y: auto; }
 .dl { display: flex; flex-wrap: wrap; gap: 8px; }
 .dl a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: var(--radius); color: var(--fg); text-decoration: none; font: 600 13px var(--font-sans); }
 .dl a:hover { border-color: var(--fg-muted); }
@@ -217,6 +217,25 @@ th, td { text-align: left; vertical-align: top; padding: 12px 16px; border-botto
 tr:last-child td { border-bottom: 0; }
 th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-muted); font-weight: 500; }
 td:first-child { white-space: nowrap; font-weight: 600; }
+table.art { min-width: 640px; }
+table.art td:first-child { white-space: normal; font-weight: 400; width: 38%; }
+table.art td:first-child b { display: block; font-weight: 600; margin-bottom: 2px; }
+table.art td:last-child { white-space: nowrap; width: 1%; }
+details.sec { display: grid; min-width: 0; border-block: 1px solid var(--border); }
+.folds details.sec + details.sec { border-top: 0; }
+details.sec > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding-block: 8px; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary .chev { flex: none; color: var(--fg-muted); transition: transform 220ms var(--ease), color 150ms var(--ease); }
+details.sec > summary:hover .chev { color: var(--fg); }
+details.sec[open] > summary .chev { transform: rotate(180deg); }
+details.sec .sec-body { display: grid; gap: 16px; min-width: 0; padding-bottom: 24px; }
+details.sec[open] .sec-body { animation: slide-down 240ms cubic-bezier(.2,.8,.2,1); }
+@keyframes slide-down { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+.folds { display: grid; gap: 0; }
+q { font-style: italic; color: var(--fg); quotes: "\201C" "\201D"; }
+.st { display: inline-flex; align-items: center; gap: 6px; font: 500 13px var(--font-sans); color: var(--tone); }
+.st svg { flex: none; }
+.st-ok { --tone: var(--green); } .st-part { --tone: var(--amber); } .st-plan { --tone: var(--blue); } .st-open { --tone: var(--fg-muted); }
 .tag { display: inline-block; font: 500 11px var(--font-mono); letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border-strong); color: var(--fg-muted); margin-left: 6px; vertical-align: 1px; }
 
 .costs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
@@ -236,13 +255,72 @@ footer { color: var(--fg-muted); font-size: 13px; }
 
 <main class="page">
   <header>
-    <div class="label">Zenon NFT standard · unlockable content</div>
+    <div class="label">The New NFT Standard · Virtual Hologram · Embedded Unlockable Content</div>
     <h1>Threshold release</h1>
-    <p class="lede">The content key is sealed once to the Sentinels. Whoever the ledger says holds the item can open it, and a transfer is a plain send.<a class="cite" href="#s1">1</a><a class="cite" href="#s16">16</a></p>
+    <p class="lede">A way to build the Virtual Hologram and its Embedded Unlockable Content from Zenon's 2022 article. The content key is sealed once to the Sentinels, and only the NFT holder the ledger names can reveal the content.<a class="cite" href="#s1">1</a><a class="cite" href="#s16">16</a></p>
   </header>
 
-  <section aria-labelledby="h-seq">
-    <h2 id="h-seq">How an item opens</h2>
+  <section aria-labelledby="h-art">
+    <h2 id="h-art">Against the article</h2>
+    <p class="hint">Each definition from <a href="https://medium.com/@zenon.network/the-new-nft-standard-when-cryptography-meets-steganography-9e356007dcaa">The New NFT Standard</a>, in its own words, and where this page shows it working.<a class="cite" href="#s1">1</a></p>
+    <div class="panel tbl">
+      <table class="art">
+        <thead><tr><th>The article</th><th>This solution</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Virtual Hologram</b><q>the on-chain information can be cryptographically linked and embedded into the actual NFT</q></td>
+            <td>A signed record of the ledger, the item, the content hash and the issuer, embedded in the file itself. <a href="#demo-holo">See the Virtual Hologram</a></td>
+            <td><span class="st st-ok">__I_OK__Met</span></td>
+          </tr>
+          <tr>
+            <td><q>change the representation of the NFT in an imperceptible manner</q></td>
+            <td>The file opens and plays as before. 32 of 36 types read identically in their own software. Plain text shows the record as a trailing line. <a href="#demo-previews">Compare before and after</a></td>
+            <td><span class="st st-part">__I_PART__Partly</span></td>
+          </tr>
+          <tr>
+            <td><q>steganography will be used to insert it into the NFT</q> <span class="hint">(LSB, BPCS)</span></td>
+            <td>Inserted where each format already ignores bytes, not in the pixels, so it works for every file type. A byte inspector can find it. An LSB pointer for images is planned, not built. <a href="#demo-layout">See where the bytes went</a></td>
+            <td><span class="st st-part">__I_PART__Partly</span></td>
+          </tr>
+          <tr>
+            <td><b>Embedded Unlockable Content</b><q>additional content that can only be revealed by the NFT holder</q></td>
+            <td>The content rides encrypted inside the same file. The Sentinels release its key only to the account the ledger names as the NFT holder. <a href="#h-com">Ask the committee</a></td>
+            <td><span class="st st-ok">__I_OK__Met</span></td>
+          </tr>
+          <tr>
+            <td><q>Such content can be anything</q></td>
+            <td>Any bytes of any length, carried by any file type. <a href="#h-demo">Try your own file</a></td>
+            <td><span class="st st-ok">__I_OK__Met</span></td>
+          </tr>
+          <tr>
+            <td><q>the &ldquo;Save as&rdquo; method would be useless, as only the NFT holder will be able to authenticate the NFT using its embedded Virtual Hologram</q></td>
+            <td>A saved copy has the same bytes and reveals nothing: a stranger with the copy is refused, and so is the previous holder once the item is sent. <a href="#h-com">Ask as the stranger</a></td>
+            <td><span class="st st-ok">__I_OK__Met</span></td>
+          </tr>
+          <tr>
+            <td><q>the new NFT standard under the ZTS umbrella</q></td>
+            <td>Items as entries of an nft embedded contract in the ZTS balance map. Needs a spork. <a href="#h-zen">What Zenon needs</a></td>
+            <td><span class="st st-plan">__I_PLAN__Planned</span></td>
+          </tr>
+          <tr>
+            <td><q>community participation funded through Accelerator-Z grants</q></td>
+            <td>Five phases, one Accelerator-Z proposal each.<a class="cite" href="#s16">16</a></td>
+            <td><span class="st st-plan">__I_PLAN__Planned</span></td>
+          </tr>
+          <tr>
+            <td><q>the change in the NFT could transcend into the physical world</q></td>
+            <td>Not addressed here.</td>
+            <td><span class="st st-open">__I_OPEN__Open</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">Spectral Attestation, sol's 2022 forum term for "extract the Virtual Hologram and validate it using on-chain data", is the hologram check in the demo below.<a class="cite" href="#s20">20</a> The article does not say which key reveals the content or what happens on transfer. Threshold release is this page's answer.</p>
+  </section>
+
+  <details class="sec" id="sec-seq">
+    <summary><h2 id="h-seq">How an item opens</h2><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="sec-body">
     <div class="panel">
       <div class="lanes"><svg id="lanes" role="img" aria-label="Sequence of mint, open and transfer"></svg></div>
       <div class="caption">
@@ -253,11 +331,12 @@ footer { color: var(--fg-muted); font-size: 13px; }
         </div>
       </div>
     </div>
-  </section>
+    </div>
+  </details>
 
   <section aria-labelledby="h-demo">
     <h2 id="h-demo">Try it with a file</h2>
-    <p class="hint">The proof of concept's own Go code, running in your browser. Nothing leaves this page.<a class="cite" href="#s19">19</a></p>
+    <p class="hint">The proof of concept's own Go code embeds a Virtual Hologram and Embedded Unlockable Content in your file, in your browser. Nothing leaves this page.<a class="cite" href="#s19">19</a></p>
     <div class="panel">
       <div class="demo-top">
         <div>
@@ -270,8 +349,8 @@ footer { color: var(--fg-muted); font-size: 13px; }
         </div>
         <div class="ctl2">
           <div class="field">
-            <label for="payload">Unlockable content</label>
-            <textarea id="payload">Only the holder can read this. It travels inside the file, encrypted, and the committee releases the key.</textarea>
+            <label for="payload">Embedded Unlockable Content</label>
+            <textarea id="payload">Only the NFT holder can reveal this. It travels inside the file, encrypted, and the Sentinels release the key.</textarea>
           </div>
           <div class="status" id="status"><i class="dot"></i><span>Loading the Go module</span></div>
         </div>
@@ -281,17 +360,17 @@ footer { color: var(--fg-muted); font-size: 13px; }
           <div class="facts" id="facts"></div>
           <div class="checks" id="checks"></div>
         </div>
-        <div>
+        <div id="demo-layout">
           <h3>Where the bytes went</h3>
           <div class="layout" id="layout"></div>
           <div class="hex" id="hex"></div>
         </div>
-        <div>
+        <div id="demo-previews">
           <h3>Before and after</h3>
           <div class="previews" id="previews"></div>
         </div>
-        <div>
-          <details><summary>Hologram</summary><pre id="holo"></pre></details>
+        <div id="demo-holo">
+          <details id="holo-d"><summary>Virtual Hologram</summary><pre id="holo"></pre></details>
           <details><summary>Pointer-only record, for a file that must not change</summary><pre id="pointer"></pre></details>
           <div class="dl" id="dl"></div>
         </div>
@@ -299,9 +378,11 @@ footer { color: var(--fg-muted); font-size: 13px; }
     </div>
   </section>
 
-  <section aria-labelledby="h-com">
-    <h2 id="h-com">Ask the committee</h2>
-    <p class="hint">A 3-of-5 committee and a ledger live in the module. Tap a Sentinel to take it offline or make it collude.<a class="cite" href="#s2">2</a><a class="cite" href="#s5">5</a></p>
+  <div class="folds">
+  <details class="sec" id="sec-com">
+    <summary><h2 id="h-com">Ask the committee</h2><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="sec-body">
+    <p class="hint">A 3-of-5 committee and a ledger live in the module. Only the NFT holder should reveal the content. A stranger holding a saved copy tests the article's "Save as" claim. Tap a Sentinel to take it offline or make it collude.<a class="cite" href="#s1">1</a><a class="cite" href="#s2">2</a><a class="cite" href="#s5">5</a></p>
     <div class="panel com">
       <div class="ctl">
         <div class="field">
@@ -309,12 +390,12 @@ footer { color: var(--fg-muted); font-size: 13px; }
           <div class="seg" role="group" aria-labelledby="who-l">
             <button type="button" id="who-a" data-who="a" aria-pressed="true">Holder A</button>
             <button type="button" id="who-b" data-who="b">Holder B</button>
-            <button type="button" id="who-x" data-who="x">Stranger</button>
+            <button type="button" id="who-x" data-who="x">Stranger with a copy</button>
           </div>
         </div>
         <div class="nodes" id="nodes"></div>
         <div class="actions">
-          <button class="btn btn-plasma" id="open" type="button" disabled>Open</button>
+          <button class="btn btn-plasma" id="open" type="button" disabled>Reveal</button>
           <button class="btn" id="send" type="button" disabled>Send A to B</button>
           <button class="btn" id="reshare" type="button" disabled>Reshare to 4-of-7</button>
         </div>
@@ -324,10 +405,12 @@ footer { color: var(--fg-muted); font-size: 13px; }
         <div class="log" id="log"></div>
       </div>
     </div>
-  </section>
+    </div>
+  </details>
 
-  <section aria-labelledby="h-zen">
-    <h2 id="h-zen">What Zenon needs</h2>
+  <details class="sec" id="sec-zen">
+    <summary><h2 id="h-zen">What Zenon needs</h2><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="sec-body">
     <div class="panel tbl">
       <table>
         <thead><tr><th>Layer</th><th>Change</th></tr></thead>
@@ -340,10 +423,12 @@ footer { color: var(--fg-muted); font-size: 13px; }
         </tbody>
       </table>
     </div>
-  </section>
+    </div>
+  </details>
 
-  <section aria-labelledby="h-cost">
-    <h2 id="h-cost">What it costs</h2>
+  <details class="sec" id="sec-cost">
+    <summary><h2 id="h-cost">What it costs</h2><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="sec-body">
     <div class="costs">
       <div class="panel cost"><b>Collusion</b><p>Any t Sentinels together can open everything sealed to their key. The bridge trusts its orchestrators the same way.<a class="cite" href="#s13">13</a></p></div>
       <div class="panel cost"><b>Liveness</b><p>Fewer than t online and nobody opens. The holder wrap on the ledger still does.<a class="cite" href="#s16">16</a></p></div>
@@ -351,10 +436,12 @@ footer { color: var(--fg-muted); font-size: 13px; }
       <div class="panel cost"><b>Not proxy re-encryption</b><p>A key holder still acts at every transfer, and single-hop schemes cannot follow a chain of holders.<a class="cite" href="#s15">15</a><a class="cite" href="#s16">16</a></p></div>
     </div>
     <p class="hint">The same shape runs in production at Lit, Seal, drand tlock, TACo and Shutter.<a class="cite" href="#s8">8</a><a class="cite" href="#s9">9</a><a class="cite" href="#s10">10</a><a class="cite" href="#s11">11</a><a class="cite" href="#s12">12</a></p>
-  </section>
+    </div>
+  </details>
 
-  <section aria-labelledby="h-src">
-    <h2 id="h-src">Sources</h2>
+  <details class="sec" id="sec-src">
+    <summary><h2 id="h-src">Sources</h2><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="sec-body">
     <ol class="src">
       <li id="s1">Zenon Network. <a href="https://medium.com/@zenon.network/the-new-nft-standard-when-cryptography-meets-steganography-9e356007dcaa">The New NFT Standard: when cryptography meets steganography</a>. Medium, 2022-05-01.</li>
       <li id="s2">A. Shamir. <a href="https://doi.org/10.1145/359168.359176">How to Share a Secret</a>. Communications of the ACM 22(11), 1979.</li>
@@ -375,8 +462,11 @@ footer { color: var(--fg-muted); font-size: 13px; }
       <li id="s17">Project document, 2026-10-05: <span class="local">zenon-sentinels/docs/contract-v2.md</span>, operator keys and pay by duty.</li>
       <li id="s18">Measurement, devnet, 2026-09-13: <span class="local">zenon-docs/measurements/threshold-signatures.md</span>, a FROST-Ed25519 quorum holds a z1 address and resharing keeps the group key.</li>
       <li id="s19">Proof of concept, 2026-10-16: <span class="local">zenon-nft/poc</span>, the container across 36 file types and the committee on Curve25519 (<span class="local">filippo.io/edwards25519</span>), compiled to WebAssembly for this page. Results in <span class="local">zenon-nft/docs/POC.md</span>.</li>
+      <li id="s20">sol. <a href="https://forum.zenon.org/t/steganography-nft-what-can-it-be-used-for/952">Steganography NFT: What can it be used for?</a> Zenon forum, thread 952, 2022-11. Coins Spectral Attestation.</li>
     </ol>
-  </section>
+    </div>
+  </details>
+  </div>
 
   <footer>Design only. Nothing on this page talks to a Zenon network, and nothing you load here is sent anywhere.</footer>
 </main>
@@ -394,6 +484,8 @@ footer { color: var(--fg-muted); font-size: 13px; }
     warn: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
     bad: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
     mute: '<circle cx="12" cy="12" r="10"/>',
+    part: '<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>',
+    plan: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
   };
   const icon = (k, s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
 
@@ -401,16 +493,16 @@ footer { color: var(--fg-muted); font-size: 13px; }
   const P = ['Issuer', 'File', 'Ledger', 'Holder A', 'Holder B', 'Sentinels'];
   const S = [
     { f: 0, t: 2, l: 'mint item', b: 'Mint', n: 'The nft contract stores the content hash, the issuer and which committee key the item is sealed to.', c: [16] },
-    { f: 0, t: 1, l: 'seal key to committee', b: 'Seal once', n: 'The content key is sealed to the Sentinels’ group key, beside the hologram and the ciphertext. The file never changes again.', c: [1, 4, 5] },
+    { f: 0, t: 1, l: 'embed hologram, seal key', b: 'Embed the Virtual Hologram', n: 'The Virtual Hologram and the Embedded Unlockable Content go into the file. The content key is sealed once to the Sentinels’ group key, beside them. The file never changes again.', c: [1, 4, 5] },
     { f: 0, t: 3, l: 'send item', b: 'First holder', n: 'An ordinary send. Nothing is re-keyed.', c: [] },
     { f: 3, t: 5, l: 'open: item, signed challenge, one-time key', b: 'Ask to open', n: 'A signs a fresh challenge with its account key and adds a one-time X25519 key for the replies.', c: [7] },
     { f: 5, t: 2, l: 'who holds the item?', b: 'Check the ledger', n: 'Every Sentinel reads the holder from the ledger itself. None takes the request’s word for it.', c: [] },
     { f: 2, t: 5, l: 'Holder A', r: 1, b: 'The ledger answers', n: 'The ledger is the only authority on who holds the item.', c: [] },
     { f: 5, t: 3, l: 't shares, sealed to the one-time key', r: 1, b: 'Release shares', n: 'One share reveals nothing. Any t of them are enough.', c: [2, 3] },
-    { f: 3, t: 3, l: 'combine, decrypt', b: 'Open', n: 'Lagrange interpolation joins the shares into the key and the content opens. No Sentinel ever sees the key.', c: [2] },
+    { f: 3, t: 3, l: 'combine, reveal', b: 'Reveal', n: 'Lagrange interpolation joins the shares into the key and the NFT holder reveals the content. No Sentinel ever sees the key.', c: [2] },
     { f: 3, t: 4, l: 'send item', b: 'Transfer', n: 'A plain send. A does nothing else, and B needs no key on record.', c: [16] },
     { f: 3, t: 5, l: 'open', b: 'A asks again', n: 'A still has a valid signature and the same file.', c: [] },
-    { f: 5, t: 3, l: 'refused: the ledger says B', r: 1, x: 1, b: 'Refused', n: 'Honest Sentinels refuse. A copy cannot authenticate. What A saw before, A keeps.', c: [1] },
+    { f: 5, t: 3, l: 'refused: the ledger says B', r: 1, x: 1, b: 'Refused', n: 'Honest Sentinels refuse. As the article says, “Save as” is useless: a copy cannot authenticate. What A saw before, A keeps.', c: [1] },
     { f: 4, t: 5, l: 'open', b: 'B asks', n: 'B asks the same way A did, and the Sentinels find B on the ledger.', c: [] },
     { f: 5, t: 4, l: 't shares', r: 1, b: 'B opens', n: 'B opens the same file A had, byte for byte.', c: [] },
   ];
@@ -486,18 +578,20 @@ footer { color: var(--fg-muted); font-size: 13px; }
   SAMPLES.forEach((name) => {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'chip'; b.textContent = name; b.setAttribute('aria-pressed', 'false');
-    b.addEventListener('click', async () => {
-      if (!ready) return;
-      try {
-        const res = await fetch('samples/' + name);
-        if (!res.ok) throw new Error(res.status);
-        const bytes = new Uint8Array(await res.arrayBuffer());
-        [...chips.children].forEach((c) => c.setAttribute('aria-pressed', String(c === b)));
-        wrapBytes(bytes, name);
-      } catch (e) { setStatus('bad', 'Sample not available: ' + name); }
-    });
+    b.addEventListener('click', () => loadSample(b));
     chips.appendChild(b);
   });
+  async function loadSample(b) {
+    if (!ready) return;
+    const name = b.textContent;
+    try {
+      const res = await fetch('samples/' + name);
+      if (!res.ok) throw new Error(res.status);
+      const bytes = new Uint8Array(await res.arrayBuffer());
+      [...chips.children].forEach((c) => c.setAttribute('aria-pressed', String(c === b)));
+      wrapBytes(bytes, name);
+    } catch (e) { setStatus('bad', 'Sample not available: ' + name); }
+  }
   async function loadWasm() {
     if (location.protocol === 'file:') { setStatus('bad', 'Serve this folder over http to run the demo'); return; }
     if (!window.WebAssembly || typeof Go !== 'function') { setStatus('bad', 'WebAssembly is not available in this browser'); return; }
@@ -508,6 +602,7 @@ footer { color: var(--fg-muted); font-size: 13px; }
         setStatus('ready', `Ready. Committee ${i.committee}, group key ${i.groupKey.slice(0, 12)}…`);
         com.info = i;
         renderNodes();
+        loadSample(chips.children[0]);
       };
       const go = new Go();
       const r = await WebAssembly.instantiateStreaming(fetch('znft.wasm'), go.importObject);
@@ -562,7 +657,7 @@ footer { color: var(--fg-muted); font-size: 13px; }
       ['container', fmt(res.containerLen) + ' B'], ['wrapper', fmt(wrapperBytes) + ' B'], ['content hash', res.contentHash.slice(0, 16) + '…'],
     ].map(([k, v]) => `<div class="fact"><span class="k">${k}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`).join('');
     const check = (ok, label) => `<span class="check ${ok ? 'ok' : 'no'}">${icon(ok ? 'ok' : 'info', 16)}${label}</span>`;
-    $('checks').innerHTML = check(res.roundTrip, 'original bytes recover exactly') + check(res.verifies, 'hologram verifies') +
+    $('checks').innerHTML = check(res.roundTrip, 'original bytes recover exactly') + check(res.verifies, 'Virtual Hologram verifies (Spectral Attestation)') +
       check(res.holderOpened, 'holder wrap opens') + check(res.pointerOK, 'pointer-only record verifies');
 
     // Where the bytes went: unchanged head, inserted span, unchanged tail.
@@ -681,7 +776,7 @@ footer { color: var(--fg-muted); font-size: 13px; }
     o.innerHTML = `${icon(kind)}<div><b>${esc(title)}</b><p>${esc(text)}</p>${payload !== undefined ? `<div class="pl">${esc(payload)}</div>` : ''}</div>`;
   }
   const short = (a) => a ? a.slice(0, 14) + '…' + a.slice(-6) : '';
-  const WHO = { a: 'Holder A', b: 'Holder B', x: 'Stranger' };
+  const WHO = { a: 'Holder A', b: 'Holder B', x: 'Stranger with a copy' };
   $('open').addEventListener('click', () => {
     if (!last) return;
     const asked = com.st.map((s, i) => ({ s, i })).filter(({ s }) => s !== 'off').map(({ i }) => i);
@@ -700,9 +795,9 @@ footer { color: var(--fg-muted); font-size: 13px; }
       leak = c.ok;
       kv.push(['collusion', c.ok ? `${colluders.length} colluding nodes opened the capsule without the ledger` : c.reason, c.ok ? 'no' : 'ok']);
     }
-    if (r.ok) setOutcome('ok', 'Opens', `${r.shares.length} shares joined into the content key.`, r.payload);
-    else if (r.shares.length && r.shares.length < r.threshold) setOutcome('warn', 'Too few online', `${r.shares.length} of ${r.threshold} shares. The holder wrap on the ledger would still open it.`);
-    else setOutcome('info', 'Refused', r.refusals.length ? r.refusals[0].reason.replace(/^refused: /, '') : r.reason);
+    if (r.ok) setOutcome('ok', 'Revealed to the NFT holder', `${r.shares.length} shares joined into the content key.`, r.payload);
+    else if (r.shares.length && r.shares.length < r.threshold) setOutcome('warn', 'Too few online', `${r.shares.length} of ${r.threshold} shares. The holder wrap on the ledger would still reveal it.`);
+    else setOutcome('info', 'Refused', (r.refusals.length ? r.refusals[0].reason.replace(/^refused: /, '') : r.reason) + '. "Save as" is useless.');
     if (leak) setOutcome('bad', 'Key leaked', 'Enough colluding nodes reconstructed the group secret and opened the capsule with no ledger check.', (znft.collude(last.res.unlock, last.res.cipher, colluders)).payload);
     $('log').innerHTML = kv.map(([k, v, cls]) => `<div class="kv"><span class="k">${esc(k)}</span><span class="v ${cls || ''}">${esc(v)}</span></div>`).join('');
     renderNodes(new Set(r.shares.map((sh) => sh.node - 1)));
@@ -724,6 +819,33 @@ footer { color: var(--fg-muted); font-size: 13px; }
     $('reshare').disabled = true;
     setOutcome('info', `Reshared to ${r.t}-of-${r.n}`, `Group key ${r.same ? 'unchanged' : 'CHANGED'}: ${r.groupKey.slice(0, 16)}… Epoch ${r.epoch}. The wrapped file was not touched; ask again.`);
   });
+
+  const GLYPH = { 'st-ok': 'ok', 'st-part': 'part', 'st-plan': 'plan', 'st-open': 'mute' };
+  document.querySelectorAll('.st').forEach((el) => {
+    const cls = [...el.classList].find((c) => GLYPH[c]);
+    el.innerHTML = icon(GLYPH[cls], 15) + esc(el.textContent.replace(/^__I_[A-Z]+__/, ''));
+  });
+
+  // A link into a closed dropdown opens it first, then scrolls. Citations, the
+  // article table's proof links, and the Virtual Hologram panel all use this.
+  function reveal(id) {
+    const t = document.getElementById(id);
+    if (!t) return null;
+    for (let d = t.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    if (t.tagName === 'DETAILS') t.open = true;
+    return t;
+  }
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    const t = reveal(id === 'demo-holo' ? 'holo-d' : id);
+    if (!t) return;
+    e.preventDefault();
+    (id === 'demo-holo' ? document.getElementById('demo-holo') : t).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + id);
+  });
+  if (location.hash) { const t = reveal(location.hash.slice(1)); if (t) t.scrollIntoView({ block: 'start' }); }
 
   loadWasm();
 })();
